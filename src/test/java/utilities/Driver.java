@@ -2,9 +2,11 @@ package utilities;
 
 import com.microsoft.playwright.*;
 
+import java.awt.*;
+import java.nio.file.Paths;
+import java.util.Map;
+
 public class Driver {
-
-
 
     private static Playwright playwright;
     private static Browser browserObject;
@@ -64,10 +66,31 @@ public class Driver {
             }
         }
         if (context == null) {
-            context = browserObject.newContext();
+            // Tarayıcı bağlamı seçeneklerini ayarla
+            Browser.NewContextOptions contextOptions = new Browser.NewContextOptions()
+                    .setAcceptDownloads(true);
+
+            context = browserObject.newContext(contextOptions);
         }
         if (page == null) {
             page = context.newPage();
+
+            // İndirme etkinliğini dinle
+            page.onDownload(download -> {
+                String downloadPath = Paths.get("src/test/resources/testData", download.suggestedFilename()).toString(); // İndirme yolu
+                try {
+                    download.saveAs(Paths.get(downloadPath));
+                } catch (Exception e) {
+                    System.out.println("Do not install in project");
+                }
+            });
+
+            // Ekran çözünürlüğünü al
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int width = (int) screenSize.getWidth();
+            int height = (int) screenSize.getHeight();
+
+            page.setViewportSize(width, height); // Ekran boyutunu ayarla
         }
         return page;
     }
