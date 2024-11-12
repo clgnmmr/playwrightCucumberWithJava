@@ -15,8 +15,9 @@ public class Hook {
         if (scenario.isFailed()) {
             byte[] screenshot = Driver.getDriver().screenshot(new Page.ScreenshotOptions().setPath(Paths.get("screenshots", scenario.getName() + ".png")).setFullPage(true));
             scenario.attach(screenshot, "image/png", "screenshots");
+            Driver.closeDriver();
         }
-        Driver.closeDriver();
+
 
     }
 }

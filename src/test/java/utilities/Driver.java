@@ -74,8 +74,6 @@ public class Driver {
         }
         if (page == null) {
             page = context.newPage();
-
-            // İndirme etkinliğini dinle
             page.onDownload(download -> {
                 String downloadPath = Paths.get("src/test/resources/testData", download.suggestedFilename()).toString(); // İndirme yolu
                 try {
@@ -84,13 +82,11 @@ public class Driver {
                     System.out.println("Do not install in project");
                 }
             });
-
-            // Ekran çözünürlüğünü al
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             int width = (int) screenSize.getWidth();
             int height = (int) screenSize.getHeight();
 
-            page.setViewportSize(width, height); // Ekran boyutunu ayarla
+            page.setViewportSize(width, height);
         }
         return page;
     }
