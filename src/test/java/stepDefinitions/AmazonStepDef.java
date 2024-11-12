@@ -9,7 +9,9 @@ import org.junit.Assert;
 import pages.AmazonPage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.ExcelUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AmazonStepDef {
@@ -27,25 +29,22 @@ public class AmazonStepDef {
         Driver.getDriver().waitForLoadState();
         System.out.println(Driver.getDriver().title());
         Assert.assertTrue(amazonPage.amazonAd.isVisible());
-        //Assert.assertEquals("Zamazon",homePage.amazonAd.textContent());
     }
 
-    @When("User searches {string} word")
-    public void userSearchesWord(String word) throws InterruptedException {
-        amazonPage.search.fill(ConfigReader.getProperty(word));
+    @When("User searches {int} word")
+    public void userSearchesWord(Integer word) throws  IOException {
+        ExcelUtil.loadExcel(ConfigReader.getProperty("wordExcelPath"), 0);
+
+        amazonPage.search.fill(ExcelUtil.getCellData(word-1,0));
         amazonPage.search.press("Enter");
         Driver.getDriver().waitForLoadState(LoadState.DOMCONTENTLOADED);
 
         Driver.getDriver().waitForSelector("//div[@data-component-type='s-search-result']");
 
-
-
         System.out.println("amazonPage.productList.size() = " + amazonPage.getProductList().size());
         for (Locator product : amazonPage.getProductList()) {
             System.out.println(product.textContent());
             System.out.println(" ");
-
         }
-        Thread.sleep(10000);
     }
 }
