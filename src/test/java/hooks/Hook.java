@@ -7,9 +7,11 @@ import utilities.Driver;
 import utilities.ReusableMethods;
 
 import java.nio.file.Paths;
+import java.util.Random;
 
 public class Hook {
 
+    public static Random random=new Random();
     @After
     public void tearDown(Scenario scenario) throws Exception {
 
