@@ -1,7 +1,6 @@
 package utilities;
 
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
@@ -23,5 +22,27 @@ public class ExcelUtil {
         return sheet.getRow(row).getCell(col).toString();
     }
 
+    public static Integer getRowTotal(String path) {
+        int filledRowCount = 0;
+        try (FileInputStream fis = new FileInputStream(path);
+             Workbook workbook = new XSSFWorkbook(fis)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            for (Row row : sheet) {
+                boolean isEmptyRow = true;
+                for (Cell cell : row) {
+                    if (cell.getCellType() != CellType.BLANK) {
+                        isEmptyRow = false;
+                        break;
+                    }
+                }
+                if (!isEmptyRow) {
+                    filledRowCount++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return filledRowCount;
+    }
 
 }
