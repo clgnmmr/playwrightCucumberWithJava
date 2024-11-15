@@ -20,7 +20,7 @@ public class WriteToText {
             writer.close();
 
         } catch (Exception e) {
-            System.out.println("failed to print");
+            System.out.println("could not be written");
         }
     }
 
@@ -40,7 +40,7 @@ public class WriteToText {
             writer.close();
 
         } catch (Exception e) {
-            System.out.println("failed to print");
+            System.out.println("could not be written");
 
         }
 

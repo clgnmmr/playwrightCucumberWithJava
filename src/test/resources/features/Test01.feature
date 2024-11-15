@@ -9,3 +9,6 @@ Feature: Amazon
     And User writes product information to "productInfoPath"
     And User clicks add to card
     And User clicks go to card
+    Then User validation product information to "productInfoPath"
+    And User increases the product to 4
+    And User delete product
