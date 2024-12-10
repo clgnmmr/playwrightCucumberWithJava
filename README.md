@@ -51,3 +51,23 @@ Cucumber BDD framework kullanılarak, Java21  ve Maven projesi oluşturulmuştur
 <a href="https://www.maven.com" target="_blank" rel="noreferrer"> <img src="https://koraypeker.com/wp-content/uploads/2018/06/1_xsrKVt69q3JsZzLD-ldekQ.jpeg" alt="git" width="100" height="40"/> </a>
 
 <hr/>
+
+ # Kullanılan komutlar
+
+1. Playwright yükleme komutu
+   npm install -g @playwright/test@latest
+   npm install -g npm@latest
+   npx playwright install
+
+2. İstediğimiz browserda playwright 'ın inspector açabiliriz
+   npx playwright codegen https://www.amazon.com --browser=chromium --channel=msedge 
+   npx playwright codegen https://www.amazon.com --browser=chromium
+   npx playwright codegen https://www.amazon.com --browser=firefox
+   npx playwright codegen https://www.amazon.com --browser=webkit
+
+3. Testlerin takip edildiği playwright ui ekranı(java için kullanılamıyor)
+   npx playwright test --ui
+
+4. Cucumber report komutu
+   mvn clean test
+   mvn clean test -Dtest=Runner(bu şekilde belirli testler çalıştırılabilir)
